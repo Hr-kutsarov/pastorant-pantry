@@ -11,16 +11,7 @@ export default function Home() {
   
   return (
     <PageLayout>
-      <NavLayout>
-        <Label>
-          <span className={twMerge('text-slate-400 text-2xl')}>
-            Pastorant pantry
-          </span>
-        </Label>
-        <Button variant='default'>
-          New order list
-        </Button>
-      </NavLayout>
+      <NavLayout />
       <SectionLayout>
         <ProductsList />
       </SectionLayout>
