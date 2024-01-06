@@ -1,7 +1,10 @@
+import NavLayout from '@/components/compound/navigation-layout'
+import PageLayout from '@/components/compound/page-layout'
+
 export default function AuthPage() {
     return (
-        <>
-        Auth page content
-        </>
+        <PageLayout>
+            <NavLayout />
+        </PageLayout>
     )
 }
