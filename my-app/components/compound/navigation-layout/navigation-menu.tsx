@@ -12,7 +12,7 @@ import { usePathname } from 'next/navigation'
 
 export default function NavMenuModule() {
     const spanStyles = 'flex w-full h-full gap-2 items-center';
-    const testStyles = 'min-h-[60px]  min-w-[300px]'
+    const testStyles = 'min-h-[60px] w-full'
 
     // path name
     const pathname = usePathname();
@@ -27,8 +27,8 @@ export default function NavMenuModule() {
         {
             icon: HiWrenchScrewdriver,
             label: 'Settings',
-            active: pathname === '/search',
-            href: '/search'
+            active: pathname === '/settings',
+            href: '/settings'
         },
         {
             icon: Tb24Hours,

@@ -18,6 +18,7 @@ const NavMenuItem: React.FC<NavItemProps> = ({
 }) => {
     // styles
     const linkStyles = 'flex min-h-[60px] items-center justify-center min-w-[42px] gap-1 font-semibold text-sm text-slate-400 hover:text-slate-200 group relative';
+    const activeStateStyles = 'text-slate-700'
 
     return ( 
         <motion.span
@@ -28,9 +29,9 @@ const NavMenuItem: React.FC<NavItemProps> = ({
             // borderRadius: "100%"
         }}
         >
-            <Link href={href} className={twMerge(linkStyles)}>
-                    <Icon size={24}/>
-                    {/* {active ? <p className='text-lg font-semibold'>{label}</p> : null} */}
+            <Link href={href} className={twMerge(linkStyles, active && activeStateStyles)}>
+                <Icon size={24}/>
+                {/* {active ? <p className='text-lg font-semibold'>{label}</p> : null} */}
             </Link>
         </motion.span>
      );
