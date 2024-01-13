@@ -82,26 +82,33 @@ export default function ProductsList() {
     // button actions
 
     const removeItemFromList = async (item: ProductType) => {
-        // console.log(`removing ${item.name} from list`)
-        
-        // an array of items which are the remaining items in the list
-        const remainingItems = dataStorage.itemsList.filter((i) => i.id !== item.id)
-        // the sought for item
-        const currentItem = dataStorage.itemsList.filter((i) => i.id === item.id)[0]
-        // eddit the sought item's property
-        currentItem['needed'] = false
-        // set the new list
-        dataStorage.setList([currentItem, ...remainingItems])
-        // console.log(store.itemsList)
+        const itemIndex = dataStorage.itemsList.findIndex((i) => i.id === item.id)
+        const leftSide = dataStorage.itemsList.slice(0, itemIndex);
+        const rightSide = dataStorage.itemsList.slice(itemIndex + 1);
+        const pr = {
+            id: item.id,
+            name: item.name,
+            quantity: item.quantity,
+            needed: false,
+            category: item.category
+        }
+
+        dataStorage.setList([...leftSide, pr, ...rightSide])
     }
 
     const addItemToList = async (item: ProductType) => {
-        // console.log(`adding ${item.name} to list`)
-        const remainingItems = dataStorage.itemsList.filter((i) => i.id !== item.id)
-        const currentItem = dataStorage.itemsList.filter((i) => i.id === item.id)[0]
-        currentItem['needed'] = true
-        dataStorage.setList([currentItem, ...remainingItems])
-        // console.log(store.itemsList)
+        const itemIndex = dataStorage.itemsList.findIndex((i) => i.id === item.id)
+        const leftSide = dataStorage.itemsList.slice(0, itemIndex);
+        const rightSide = dataStorage.itemsList.slice(itemIndex + 1);
+        const pr = {
+            id: item.id,
+            name: item.name,
+            quantity: item.quantity,
+            needed: true,
+            category: item.category
+        }
+
+        dataStorage.setList([...leftSide, pr, ...rightSide])
     }
 
     // tailwind styles
@@ -129,7 +136,7 @@ export default function ProductsList() {
                 {item.needed ? 
                 <Label className='text-rose-600'>{item.name}</Label> 
                 : 
-                <Label>{item.name}</Label>}
+                <Label className='text-slate-200'>{item.name}</Label>}
             <span className={twMerge(buttonWrapperStyles)}>
                 <Button 
                     onClick={() => removeItemFromList(item)}
