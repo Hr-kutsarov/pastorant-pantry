@@ -12,6 +12,15 @@ import { twMerge } from "tailwind-merge";
 import { useToast } from "@/components/ui/use-toast"
 import { ToastAction } from "@/components/ui/toast"
 
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
 
 // import state
 import { useEffect, useState } from "react";
@@ -105,10 +114,14 @@ export default function ProductsListDeleteOnly() {
         }
     }
 
+    const changeStatus = async (item: ProductType) => {
+        console.log(`changing item ${item.id}`)
+    }
+
     // tailwind styles
     const buttonWrapperStyles = 'flex m-1 gap-2';
-    const wrapperStyles = 'flex w-full h-full items-center p-1 rounded-md justify-between hover:bg-slate-100/30';
-    const skeletonStyles = 'bg-transparent flex items-center justify-center p-4 font-semibold text-lg'
+    const wrapperStyles = 'flex w-full h-full items-center p-1 rounded-md justify-between hover:bg-slate-50/5';
+    const actionBtnStyles = "inline-flex text-sm rounded-full shadow-md font-medium px-4 py-2 bg-gradient-to-br from-rose-700 to-rose-900 hover:from-rose-500 hover:to-rose-700 text-slate-50 hover:bg-red-800";
 
     // RENDER
     // useEffect(() => {
@@ -123,28 +136,54 @@ export default function ProductsListDeleteOnly() {
             <>Get data</> :
             null}
         </Button>
-        {dataStorage.itemsList.length > 0 
-        ? 
-        dataStorage.itemsList?.map((item) => 
-        (
-        <motion.span 
-            // initial={{opacity: 0, y: -20, height: '30px'}}
-            // animate={{opacity: 1, y: 0, height: '100%'}}
-            // transition={{ease: 'easeIn', duration: 2.4, delay: 0.3}}
-            className={twMerge(wrapperStyles)}
-            key={item.id}>
-                {item.needed ? 
-                <Label className='text-rose-600'>{item.name}</Label> 
-                : 
-                <Label>{item.name}</Label>}
-            <span className={twMerge(buttonWrapperStyles)}>
-                <Button
-                    variant='destructive'
-                    onClick={() => deleteFromList(item)}
-                    >Delete</Button>
-            </span>
-        </motion.span>
-        )) : null}
+        <span className='mt-4 max-w-[960px] w-full flex flex-col'>
+            {dataStorage.itemsList.length > 0 
+            ? 
+            dataStorage.itemsList?.map((item) => 
+            (
+            <motion.span 
+                // initial={{opacity: 0, y: -20, height: '30px'}}
+                // animate={{opacity: 1, y: 0, height: '100%'}}
+                // transition={{ease: 'easeIn', duration: 2.4, delay: 0.3}}
+                className={twMerge(wrapperStyles)}
+                key={item.id}>
+                    {item.needed ? 
+                    <Label className='text-rose-600'>{item.name}</Label> 
+                    : 
+                    <Label className='text-slate-50/80'>{item.name}</Label>}
+                <span className={twMerge(buttonWrapperStyles)}>
+                    <Dialog>
+                        <DialogTrigger
+                        className={twMerge(actionBtnStyles)}
+                        >
+                            Delete
+                        </DialogTrigger>
+                        <DialogContent
+                        className='bg-slate-50'>
+                            <DialogHeader>
+                            <DialogTitle>Are you absolutely sure?</DialogTitle>
+                            <DialogDescription className='max-w-[82%]'>
+                                This action cannot be undone. This will permanently delete your this item from the database.
+                            </DialogDescription>
+                            </DialogHeader>
+                            <DialogFooter>
+                            <Button 
+                            variant='secondary'
+                            onClick={() => changeStatus(item)}>
+                                Edit
+                            </Button>
+                            <Button 
+                            variant='destructive'
+                            onClick={() => deleteFromList(item)}>
+                                Continue
+                            </Button>
+                            </DialogFooter>
+                        </DialogContent>
+                    </Dialog>
+                </span>
+            </motion.span>
+            )) : null}
+        </span>
         </>
     )
 }

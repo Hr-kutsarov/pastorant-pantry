@@ -10,7 +10,7 @@ export default function SectionLayout({ children }: {children: React.ReactNode})
             initial={{y: 20}}
             animate={{y: 0}}
             transition={{ease: 'easeIn', duration: 0.7, delay: 0.1}}
-            className={twMerge('bg-slate-200/10 w-full h-full mb-4 flex flex-col rounded-lg shadow-md')}>
+            className={twMerge(' w-full max-w-[960px] items-center justify-center mb-4 flex flex-col rounded-lg')}>
                 {children}
             </motion.section>
         </AnimatePresence>

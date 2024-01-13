@@ -53,12 +53,12 @@ export default function SelectProductOptionsComponent() {
             const querySnapshot = await getDocs(collection(db, "products"));
             let arrNames: any[] = [];
 
-            console.log(querySnapshot)
+            // console.log(querySnapshot)
             // iterate over the collection
             querySnapshot.forEach((doc : any) => {
-                console.log(`${doc.id} => ${doc.data()}`);
+                // console.log(`${doc.id} => ${doc.data()}`);
                 // doc.data() = {category: 'food', needed: false, quantity: 12, name: 'asd'}
-                console.log(doc.data())
+                // console.log(doc.data())
                 arrNames.push(doc.data())
                 
             });
@@ -110,7 +110,7 @@ export default function SelectProductOptionsComponent() {
     ]
 
     // tw styles
-    const sectionStyles = 'bg-transparent text-slate-50 mb-4 '
+    const sectionStyles = 'bg-transparent text-slate-50 mb-4 flex max-w-[960px] w-full'
 
     return (
         <section className={twMerge(sectionStyles)}>

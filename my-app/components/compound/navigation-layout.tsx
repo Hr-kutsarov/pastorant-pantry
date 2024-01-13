@@ -10,7 +10,7 @@ import NavAuthModule from "@/components/compound/navigation-layout/navigation-au
     (animated logo, nav menu and trigger buttons)*/}
 
 export default function NavLayout() {
-    const navStyles = 'bg-transparent flex items-center gap-4 mb-4';
+    const navStyles = 'bg-transparent flex items-center gap-4 mb-4 max-w-[960px] w-full';
 
     return (
         <nav className={twMerge(navStyles)}>

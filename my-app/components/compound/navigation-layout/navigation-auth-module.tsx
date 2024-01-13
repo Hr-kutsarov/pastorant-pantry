@@ -32,6 +32,8 @@ import { Input } from "@/components/ui/input"
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useForm } from "react-hook-form"
 
+import { DrawerItem } from '@/components/specific/drawer-item';
+
 import {
     Form,
     FormControl,
@@ -41,6 +43,7 @@ import {
     FormLabel,
     FormMessage,
 } from "@/components/ui/form"
+
 
 
 import {
@@ -89,10 +92,9 @@ export default function NavAuthModule() {
     // STYLES
     const spanStyles = 'flex bg-transparent rounded-full w-auto h-full items-center justify-end ';
     // using this as it is to prevent hydration erros by using <Button> within components already declared as buttons
-    const actionBtnStyles = 'h-10 px-4 py-2 inline-flex items-center shadow-md rounded-full justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-gradient-to-br from-slate-500 to-slate-700 text-slate-50 gap-2'
+    const actionBtnStyles = ' lg:w-[270px] h-10 px-4 py-2 inline-flex items-center shadow-md rounded-full justify-center whitespace-nowrap text-sm font-medium ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 bg-gradient-to-br from-slate-500 to-slate-700 text-slate-50 w-full md:max-w-[320px]'
     const drawerContentStyles = 'bg-slate-50';
     const drawerHeaderStyles = 'mb-4 text-slate-500 text-center';
-    const DrawerDescriptionStyles = 'font-semibold text-slate-900';
 
     // save product to the database
     // Define the form.
@@ -152,6 +154,12 @@ export default function NavAuthModule() {
         // experimental
         setStage(2)
         
+    }
+
+    const submitOrderList = () => {
+        setLoadingSubmit(!loadingSubmit)
+        const orderList = dataStorage.itemsList.filter((item) => item.needed === true);
+        console.log(orderList)
     }
 
     // RENDER
@@ -267,6 +275,7 @@ export default function NavAuthModule() {
         </Dialog>
 
         <Drawer>
+            {/* Trigger at the top right of the screen/navbar */}
             <motion.span
                 // hover effects
                 whileHover={{ scale: 1.1 }}
@@ -281,26 +290,27 @@ export default function NavAuthModule() {
                     See orders
                 </DrawerTrigger>
             </motion.span>
+
+            {/* Drawer where quantities are changed before submitting */}
             <DrawerContent className={twMerge(drawerContentStyles)}>
                 <DrawerHeader >
                     {dataStorage.itemsList.filter((item) => item.needed === true).length > 0 ? 
                     <DrawerTitle className={twMerge(drawerHeaderStyles)}>Ordered items</DrawerTitle> :
                     <DrawerTitle className={twMerge(drawerHeaderStyles)}>The order list is empty</DrawerTitle>}
-                    <ScrollArea className='bg-transparent max-h-[440px]'>
-                        <span>
+                    <ScrollArea className='bg-transparent max-h-[440px] w-full max-w-[960px] justify-self-center'>
+
                         {dataStorage.itemsList.filter((item) => item.needed === true ).map((item) => 
-                        <DrawerDescription 
-                            className={twMerge(DrawerDescriptionStyles)} 
-                            key={item.id}>{item.name} - {item.quantity}
-                        </DrawerDescription>)}
-                        </span>
+                        <DrawerItem key={item.id} item={item}>
+                        </DrawerItem>)}
+
                     </ScrollArea>
                 </DrawerHeader>
-                <DrawerFooter>
+                <DrawerFooter className='grid grid-cols-2 md:mx-auto'>
                 {/* if there are needed items in the list of fetched data */}
                 {dataStorage.itemsList.filter((item) => item.needed === true).length > 0 ?                 
                 <Button 
-                onClick={() => {setLoadingSubmit(!loadingSubmit)}}
+                className='lg:w-[270px]'
+                onClick={() => submitOrderList()}
                 variant="action">
                     {loadingSubmit ? <>Now Loading</> : <>Submit list</>}
                 </Button> : null}

@@ -10,10 +10,10 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default: "bg-slate-800 text-slate-50 hover:bg-slate-600",
-        secondary: "bg-slate-400 text-slate-200 hover:bg-rose-200",
+        secondary: "bg-gradient-to-br from-slate-700 to-slate-900 hover:from-slate-500 hover:to-slate-700 text-slate-50 hover:bg-red-800",
         destructive: "bg-gradient-to-br from-rose-700 to-rose-900 hover:from-rose-500 hover:to-rose-700 text-slate-50 hover:bg-red-800",
-        action: 'bg-gradient-to-br from-rose-500 to-rose-700 text-slate-50 gap-2 w-full',
-        subAction: 'bg-gradient-to-br from-slate-500 to-slate-700 text-slate-50 gap-2 '
+        action: 'bg-gradient-to-br from-rose-500 to-rose-700 text-slate-50 gap-2 w-auto w-full',
+        subAction: 'bg-gradient-to-br from-slate-500 to-slate-700 text-slate-50 gap-2 w-auto'
       },
       size: {
         default: "h-10 px-4 py-2",
